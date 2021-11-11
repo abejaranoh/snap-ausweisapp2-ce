@@ -85,7 +85,7 @@ parts:
       - --enable-usbdropdir=/snap/ausweisapp2-ce/current/usr/lib/pcsc/drivers
       - --enable-ipcdir=/run/snap.ausweisapp2-ce
     source-type: tar
-    source: https://pcsclite.apdu.fr/files/pcsc-lite-1.9.3.tar.bz2
+    source: https://pcsclite.apdu.fr/files/pcsc-lite-1.9.4.tar.bz2
     build-packages:
       - gcc
       - pkg-config
@@ -104,7 +104,7 @@ parts:
     autotools-configure-parameters:
       - --prefix=/usr
       - --enable-usbdropdir=/snap/ausweisapp2-ce/current/usr/lib/pcsc/drivers
-    source: https://ccid.apdu.fr/files/ccid-1.4.35.tar.bz2
+    source: https://ccid.apdu.fr/files/ccid-1.4.36.tar.bz2
     build-packages:
       - pkg-config
       - libusb-1.0-0-dev
