@@ -39,6 +39,7 @@ apps:
   pcscd:
     command: usr/sbin/pcscd --foreground
     daemon: simple
+    restart-condition: always
     plugs:
       - hardware-observe
       - network
@@ -114,6 +115,25 @@ parts:
       - --prefix=/usr
       - --enable-usbdropdir=/snap/ausweisapp2-ce/current/usr/lib/pcsc/drivers
     source: https://ccid.apdu.fr/files/ccid-1.4.36.tar.bz2
+    build-packages:
+      - pkg-config
+      - libusb-1.0-0-dev
+    override-build: |
+        snapcraftctl build
+        cp -r ${SNAPCRAFT_PART_INSTALL}/snap/ausweisapp2-ce/current/usr ${SNAPCRAFT_PART_INSTALL}/
+        rm -r ${SNAPCRAFT_PART_INSTALL}/snap
+    stage-packages:
+      - libusb-1.0-0
+    after: [pcsc-lite]
+
+
+  acsccid:
+    plugin: autotools
+    source-type: tar
+    autotools-configure-parameters:
+      - --prefix=/usr
+      - --enable-usbdropdir=/snap/ausweisapp2-ce/current/usr/lib/pcsc/drivers
+    source: https://downloads.sourceforge.net/acsccid/acsccid-1.1.8.tar.bz2
     build-packages:
       - pkg-config
       - libusb-1.0-0-dev
