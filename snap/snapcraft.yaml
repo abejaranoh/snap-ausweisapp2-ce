@@ -37,7 +37,7 @@ plugs: # plugs for theming, font settings, cursor and to use gtk3 file chooser
 
 apps:
   pcscd:
-    command: usr/sbin/pcscd --foreground --auto-exit
+    command: usr/sbin/pcscd --foreground
     daemon: simple
     plugs:
       - hardware-observe
