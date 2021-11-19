@@ -47,6 +47,7 @@ apps:
 
   ausweisapp2-ce:
     adapter: full
+    extensions: [gnome-3-38]
     command: usr/bin/AusweisApp2 --no-loghandler
     command-chain:
       - bin/desktop-launch
@@ -54,18 +55,26 @@ apps:
     environment:
       DISABLE_WAYLAND: 1
     plugs:
+      - home
+      - opengl
+      - network
+      - network-bind
+      - pulseaudio
       - desktop
       - desktop-legacy
       - unity7
       - wayland
-      - network
-      - network-bind
-      - home
-      - opengl
       - hardware-observe
       - network-manager-observe
       - network-observe
       - gsettings
+      - removable-media
+      - mount-observe
+
+
+layout:
+  /usr/share/libdrm:
+    bind: $SNAP/usr/share/libdrm
 
 
 parts:
