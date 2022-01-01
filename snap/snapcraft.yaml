@@ -11,6 +11,7 @@ description: |
 
 architectures: 
   - amd64
+  - arm64
 
 icon: snap/gui/icon.svg
 
@@ -95,7 +96,7 @@ parts:
       - --enable-usbdropdir=/snap/ausweisapp2-ce/current/usr/lib/pcsc/drivers
       - --enable-ipcdir=/run/snap.ausweisapp2-ce
     source-type: tar
-    source: https://pcsclite.apdu.fr/files/pcsc-lite-1.9.4.tar.bz2
+    source: https://pcsclite.apdu.fr/files/pcsc-lite-1.9.5.tar.bz2
     build-packages:
       - gcc
       - pkg-config
