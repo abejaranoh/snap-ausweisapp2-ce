@@ -9,9 +9,11 @@ description: |
 
   http://www.ausweisapp.bund.de
 
-architectures: 
-  - amd64
-  - arm64
+
+architectures:
+  - build-on: [amd64, arm64]
+    run-on: [amd64, arm64]
+
 
 icon: snap/gui/icon.svg
 
