@@ -1,5 +1,5 @@
 name: ausweisapp2-ce
-version: '1.22.3'
+version: '1.22.4'
 base: core20
 summary: AusweisApp2-CE - Tool for the german nPA (Community Edition)
 description: |
@@ -98,6 +98,10 @@ parts:
     stage:
       - -bin/README.*
 
+  patches:
+      plugin: dump
+      source: patches
+      prime: [-*]
 
   pcsc-lite:
     plugin: autotools
@@ -125,7 +129,7 @@ parts:
     autotools-configure-parameters:
       - --prefix=/usr
       - --enable-usbdropdir=/snap/ausweisapp2-ce/current/usr/lib/pcsc/drivers
-    source: https://ccid.apdu.fr/files/ccid-1.4.36.tar.bz2
+    source: https://ccid.apdu.fr/files/ccid-1.5.0.tar.bz2
     build-packages:
       - pkg-config
       - libusb-1.0-0-dev
@@ -163,7 +167,7 @@ parts:
     autotools-configure-parameters:
       - --prefix=/usr
       - --with-usbdropdir=/snap/ausweisapp2-ce/current/usr/lib/pcsc/drivers
-    source: http://support.reiner-sct.de/downloads/LINUX/V3.99.5_SP14/pcsc-cyberjack_3.99.5final.SP14.tar.gz
+    source: https://support.reiner-sct.de/downloads/LINUX/V3.99.5_SP15/pcsc-cyberjack_3.99.5final.SP15.tar.bz2
     build-packages:
       - pkg-config
       - libusb-1.0-0-dev
@@ -195,7 +199,6 @@ parts:
     - shared-mime-info
     - libqt5gui5
     - libgdk-pixbuf2.0-0
-    - libqt5svg5
     - locales-all
 
 
@@ -203,7 +206,7 @@ parts:
       plugin: cmake
       cmake-parameters: [-DCMAKE_BUILD_TYPE=RELEASE, -DCMAKE_INSTALL_PREFIX=/usr/]
       source-type: tar
-      source: https://github.com/Governikus/AusweisApp2/archive/1.22.3.tar.gz
+      source: https://github.com/Governikus/AusweisApp2/archive/1.22.4.tar.gz
       build-packages:
         - cmake
         - file
@@ -232,5 +235,8 @@ parts:
         - qml-module-qtquick-controls2
         - qml-module-qtqml-models2
         - qml-module-qtgraphicaleffects
+      override-pull: |
+        snapcraftctl pull
+        patch -p1 < "${SNAPCRAFT_PROJECT_DIR}/patches/ausweisapp2/enable_open_action.diff"
 
-      after: [desktop-qt5]
+      after: [patches, desktop-qt5]

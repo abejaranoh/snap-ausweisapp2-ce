@@ -1,0 +1,18 @@
+diff --git a/src/ui/common/TrayIcon.cpp b/src/ui/common/TrayIcon.cpp
+index b59a2b0e..e500034d 100644
+--- a/src/ui/common/TrayIcon.cpp
++++ b/src/ui/common/TrayIcon.cpp
+@@ -102,13 +102,11 @@ void TrayIcon::updateMenu()
+ 
+ 	trayIconMenu->clear();
+ 
+-#if defined(Q_OS_MACOS)
+ 	//: LABEL DESKTOP
+ 	QAction* showApplicationAction = new QAction(tr("Open"), trayIconMenu);
+ 	connect(showApplicationAction, &QAction::triggered, this, &TrayIcon::fireShow);
+ 	trayIconMenu->addAction(showApplicationAction);
+ 	trayIconMenu->addSeparator();
+-#endif
+ 
+ 	//: LABEL DESKTOP
+ 	const auto quitAction = new QAction(tr("Quit AusweisApp2"), trayIconMenu);
