@@ -24,6 +24,10 @@ compression: lzo
 
 
 plugs: # plugs for theming, font settings, cursor and to use gtk3 file chooser
+  gnome-3-38-2004:
+    default-provider: gnome-3-38-2004
+    interface: content
+    target: $SNAP/gnome-platform
   gtk-3-themes:
     interface: content
     target: $SNAP/data-dir/themes
@@ -55,7 +59,6 @@ apps:
     command: usr/bin/AusweisApp2 --no-loghandler
     command-chain:
       - bin/desktop-launch
-      - bin/gtk3-env-launch
     environment:
       DISABLE_WAYLAND: 1
     plugs:
@@ -90,19 +93,6 @@ package-repositories:
 
 
 parts:
-  launchers: # custom launcher to set QT_QPA_PLATFORMTHEME=gtk3 correctly
-    source: snap/local/launchers
-    plugin: dump
-    organize:
-      '*': bin/
-    stage:
-      - -bin/README.*
-
-  patches:
-      plugin: dump
-      source: patches
-      prime: [-*]
-
   pcsc-lite:
     plugin: autotools
     autotools-configure-parameters:
@@ -110,8 +100,9 @@ parts:
       - --enable-usbdropdir=/snap/ausweisapp2-ce/current/usr/lib/pcsc/drivers
       - --enable-ipcdir=/run/snap.ausweisapp2-ce
     source-type: tar
-    source: https://pcsclite.apdu.fr/files/pcsc-lite-1.9.5.tar.bz2
+    source: https://pcsclite.apdu.fr/files/pcsc-lite-1.9.8.tar.bz2
     build-packages:
+      - flex
       - gcc
       - pkg-config
       - libsystemd-dev
@@ -185,21 +176,26 @@ parts:
 
 
   desktop-qt5:
-    build-packages:
-      - qtbase5-dev
-      - dpkg-dev
-    make-parameters:
-    - FLAVOR=qt5
-    plugin: make
     source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
     source-subdir: qt
+    plugin: make
+    make-parameters: ["FLAVOR=qt5"]
     stage-packages:
-    - libxkbcommon0
-    - ttf-ubuntu-font-family
-    - shared-mime-info
-    - libqt5gui5
-    - libgdk-pixbuf2.0-0
-    - locales-all
+      - adwaita-icon-theme
+      - dmz-cursor-theme
+      - fcitx-frontend-qt5
+      - gnome-themes-standard
+      - libgdk-pixbuf2.0-0
+      - libgtk2.0-0
+      - libqt5gui5
+      - libqt5svg5
+      - libxkbcommon0
+      - light-themes
+      - locales-all
+      - qt5-gtk-platformtheme
+      - shared-mime-info
+      - ttf-ubuntu-font-family
+      - xdg-user-dirs
 
 
   ausweisapp2:
@@ -237,6 +233,6 @@ parts:
         - qml-module-qtgraphicaleffects
       override-pull: |
         snapcraftctl pull
-        patch -p1 < "${SNAPCRAFT_PROJECT_DIR}/patches/ausweisapp2/enable_open_action.diff"
+        patch -p1 < "${SNAPCRAFT_PROJECT_DIR}/local/patches/ausweisapp2/enable_open_action.diff"
 
-      after: [patches, desktop-qt5]
+      after: [desktop-qt5]
