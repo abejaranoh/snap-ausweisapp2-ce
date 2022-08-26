@@ -1,18 +1,17 @@
-diff --git a/src/ui/common/TrayIcon.cpp b/src/ui/common/TrayIcon.cpp
-index b59a2b0e..e500034d 100644
---- a/src/ui/common/TrayIcon.cpp
-+++ b/src/ui/common/TrayIcon.cpp
-@@ -102,13 +102,11 @@ void TrayIcon::updateMenu()
+diff -upNr AusweisApp2-1.24.0.orig/src/ui/qml/TrayIcon.cpp AusweisApp2-1.24.0.patched/src/ui/qml/TrayIcon.cpp
+--- AusweisApp2-1.24.0.orig/src/ui/qml/TrayIcon.cpp	2022-08-17 15:48:34.000000000 +0200
++++ AusweisApp2-1.24.0.patched/src/ui/qml/TrayIcon.cpp	2022-08-26 14:30:01.778970471 +0200
+@@ -111,13 +111,11 @@ void TrayIcon::updateMenu()
  
  	trayIconMenu->clear();
  
--#if defined(Q_OS_MACOS)
+-	#if defined(Q_OS_MACOS)
  	//: LABEL DESKTOP
  	QAction* showApplicationAction = new QAction(tr("Open"), trayIconMenu);
  	connect(showApplicationAction, &QAction::triggered, this, &TrayIcon::fireShow);
  	trayIconMenu->addAction(showApplicationAction);
  	trayIconMenu->addSeparator();
--#endif
+-	#endif
  
  	//: LABEL DESKTOP
  	const auto quitAction = new QAction(tr("Quit AusweisApp2"), trayIconMenu);
