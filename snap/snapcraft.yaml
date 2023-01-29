@@ -1,5 +1,5 @@
 name: ausweisapp2-ce
-version: '1.26.1'
+version: '1.26.2'
 base: core20
 summary: AusweisApp2-CE - Tool for the german nPA (Community Edition)
 description: |
@@ -120,7 +120,7 @@ parts:
     autotools-configure-parameters:
       - --prefix=/usr
       - --enable-usbdropdir=/snap/ausweisapp2-ce/current/usr/lib/pcsc/drivers
-    source: https://ccid.apdu.fr/files/ccid-1.5.0.tar.bz2
+    source: https://ccid.apdu.fr/files/ccid-1.5.1.tar.bz2
     build-packages:
       - pkg-config
       - libusb-1.0-0-dev
@@ -202,7 +202,7 @@ parts:
       plugin: cmake
       cmake-parameters: [-DCMAKE_BUILD_TYPE=RELEASE, -DCMAKE_INSTALL_PREFIX=/usr/]
       source-type: tar
-      source: https://github.com/Governikus/AusweisApp2/archive/1.26.1.tar.gz
+      source: https://github.com/Governikus/AusweisApp2/archive/1.26.2.tar.gz
       build-packages:
         - cmake
         - file
